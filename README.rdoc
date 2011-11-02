@@ -1,0 +1,43 @@
+= work_day plugin
+
+== Install
+
+* Copy redmine_work_day to vendor/plugins on your redmine path
+* Run rake db:migrate_plugins RAILS_ENV=production
+* Restart redmine 
+
+== Settings
+
+You should now be able to see the plugin list in Administration -> Plugins and configure the newly installed plugin.
+
+You can add new types of employment:
+
+* Go to the Administration -> Plugins
+* Select redmine_work_day plugin and click on "Configure"
+* Click on "Add type"
+* Enter the name of type
+* Click on color's field and select color by help color picker "JSColor"
+* Click "Create"
+* You should now be able to see new type
+
+== Usage
+
+Fist of all configure types (see previous section).
+
+Click "WorkSheet" near the account menu. You should see table with all redmine users.
+
+Click on "Edit" to be abble to change youself information:
+
+* Select type and enter comment (comment may be blank)
+* Check one or some days
+* Click on "Save"
+
+== Uninstall
+
+<pre>
+rake db:migrate:plugin NAME=redmine_work_day VERSION=0 RAILS_ENV=production 
+rm -r vendor/plugins/redmine_work_day
+</pre>
+
+Restart redmine
+

@@ -1,0 +1,13 @@
+<%=javascript_include_tag "jscolor/jscolor", :plugin=>'redmine_work_day' %>
+
+<%= error_messages_for 'type' %>
+
+<h2><%= link_to l(:work_types), :controller => 'type', :action => 'index' %> &#187; <%="new"%></h2>
+
+<% form_tag({:action => 'create'}, :class => "tabular") do %>
+<p><label for="type_name"><%=l(:field_name)%><span class="required"> *</span></label>
+<%= text_field 'type', 'name'  %></p>
+<p><label for="type_color"><%=l(:work_field_color)%><span class="required"> *</span></label>
+<%= text_field 'type', 'color' ,{:class => "color"}%></p>
+ <%= submit_tag l(:button_create) %>
+<% end %>

@@ -1,0 +1,19 @@
+<%if @types%>
+<div align="center">
+<table class="list1">
+	<tbody>		
+		<tr>			
+			<% @types.each do |type|%>
+			   <td><%= type.name%></td>
+			<%end%>
+		</tr>
+		<tr>
+			<% @types.each do |type|%>
+			   <td bgcolor="#<%= type.color%>">&nbsp;</td>
+			<%end%>
+			
+		</tr>
+	</tbody>
+</table>
+</div>
+<%end%>

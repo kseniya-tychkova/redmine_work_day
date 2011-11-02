@@ -1,0 +1,86 @@
+<h2><%= l(:work_title)%></h2>
+
+<%= render :partial => "legend"%><br>
+<% labelled_tabular_form_for :work, @work, :url =>{:action => 'update'} do |f| %>
+<%if @types%>
+<%= "Select type: "%><%= select("type", "type_id",
+                         @types.collect{|t| [t.name, t.id]},
+                         {:include_blank=>true}, {:id=>"type_id"})
+  %><br><br>
+<%end%>
+<%= "Comment: "%><%= text_field "comment", "comment_text", :size => 60%><br><br>
+<div class="autoscroll">
+<div align="center">								   
+<table class = "list1">
+    <tbody>
+    <tr>
+    	<td  class = "head" BGCOLOR = "#CCCC00"><%= Date.today%></td>
+    	<%@colspan.sort.each do |m, c|%>
+    	<td colspan = "<%= c%>"  class = "head"><%= Date::MONTHNAMES[m.to_i]%></td>
+		<%end%>
+    </tr>
+    <tr>
+    <td  class = "head"><%=l(:work_header)%><br><br></td>
+  	<%date = Date.today-5%>
+  	<%while date < (Date.today >> 1)-5 do%>
+  	<td  class = "head"
+	<%if date.wday == 6 || date.wday == 0%>
+	BGCOLOR = "#FF9999"
+	<%end%>
+	<%if date == Date.today%>
+	BGCOLOR = "#CCCC00"
+	<%end%>
+	><%= "#{date.day}<br>#{Date::ABBR_DAYNAMES[date.wday]}"%></td>
+	<%date = date + 1%>
+	<%end%>
+	</tr>
+	<%@users.each do |user|%>
+	<tr>
+		<td><%= link_to_user user%></td>
+		<%date = Date.today-5%>
+  	    <%while date < (Date.today >> 1)-5 do%>
+  	    <td
+		<%if date.wday == 6 || date.wday == 0%>
+	    class ="sunday"
+	    <%end%>
+	    <%if date == Date.today%>
+	    class ="thisday"
+	    <%end%>
+		<%if work_day(user, date) != ""%>
+		BGCOLOR="#<%= work_day(user,date).type.color%>"
+		<%end%>
+		>
+  	    	<%if work_day(user, date) != ""%>
+			<div class="tooltip1">
+				<%if user == User.current%>
+			    <%= check_box_tag("work[#{date}]")%>
+			    <%end%>
+				&nbsp;
+				<span class = "tip">
+				<%= work_day(user, date).type.name%><br>	
+				<%= work_day(user, date).comment%>
+			</span>
+			</div>
+			<%end%>
+			<%if user == User.current && work_day(user, date) == ""%>
+			<%= check_box_tag("work[#{date}]")%>
+			<%end%>		
+  	    </td>
+	    <%date = date + 1%>
+	    <%end%>
+	</tr>
+	<%end%>
+  </tbody>
+</table>
+<br><br>
+<div class="pagination"><%= pagination_links_full @user_pages, @user_count %></div>
+</div>
+<br><br>
+<%= submit_tag l(:button_save),:class => 'button-small' -%>
+<%= link_to l(:button_cancel), {:action => 'index'}, :class => 'icon icon-cancel' %>
+<%end%>
+
+<% content_for(:header_tags) do %>
+<%= stylesheet_link_tag "work.css", :plugin => "redmine_work_day", :media => 'all' %>
+<%end%>
+</div>
