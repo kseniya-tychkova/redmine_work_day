@@ -14,7 +14,7 @@
 <table class = "list1">
     <tbody>
     <tr>
-    	<td  class = "head" BGCOLOR = "#CCCC00"><%= Date.today%></td>
+    	<td  class = "head"><%= Date.today%></td>
     	<%@colspan.sort.each do |m, c|%>
     	<td colspan = "<%= c%>"  class = "head"><%= Date::MONTHNAMES[m.to_i]%></td>
 		<%end%>
