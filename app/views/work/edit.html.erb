@@ -2,15 +2,20 @@
 
 <%= render :partial => "legend"%><br>
 <% labelled_tabular_form_for :work, @work, :url =>{:action => 'update'} do |f| %>
-<%if @types%>
-<%= "Select type: "%><%= select("type", "type_id",
-                         @types.collect{|t| [t.name, t.id]},
-                         {:include_blank=>true}, {:id=>"type_id"})
-  %><br><br>
-<%end%>
-<%= "Comment: "%><%= text_field "comment", "comment_text", :size => 60%><br><br>
 <div class="autoscroll">
 <div align="center">								   
+<div align="center">
+	<%if @types%>
+	<%= "Select type: "%><%= select("type", "type_id",
+                         @types.collect{|t| [t.name, t.id]},
+                         {:include_blank=>true}, {:id=>"type_id"})
+	%>&nbsp;
+	<%end%>
+	<%= "Comment: "%><%= text_field "comment", "comment_text", :size => 60%>&nbsp;
+<%= submit_tag l(:button_save),:class => 'button-small' -%>
+<%= link_to l(:button_cancel), {:action => 'index'}, :class => 'icon icon-cancel' %>
+</div>
+<br>
 <table class = "list1">
     <tbody>
     <tr>
@@ -76,10 +81,7 @@
 <div class="pagination"><%= pagination_links_full @user_pages, @user_count %></div>
 </div>
 <br><br>
-<%= submit_tag l(:button_save),:class => 'button-small' -%>
-<%= link_to l(:button_cancel), {:action => 'index'}, :class => 'icon icon-cancel' %>
 <%end%>
-
 <% content_for(:header_tags) do %>
 <%= stylesheet_link_tag "work.css", :plugin => "redmine_work_day", :media => 'all' %>
 <%end%>

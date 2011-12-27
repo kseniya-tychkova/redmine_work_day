@@ -3,6 +3,7 @@
 <% labelled_tabular_form_for :work, @work, :url =>{:action => 'edit'} do |f|  %>
 <div class="autoscroll">
 <div align="center">
+<div><%= submit_tag l(:button_edit),:class => 'button-small' -%></div><br>
 <table class = "list1">
     <tbody>
     <tr>
@@ -61,7 +62,6 @@
 <div class="pagination"><%= pagination_links_full @user_pages, @user_count %></div>
 </div>
 <br><br>
-<%= submit_tag l(:button_edit),:class => 'button-small' -%>
 <%end%>
 </div>
 <% content_for(:header_tags) do %>
